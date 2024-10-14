@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cli84hmstprmx"]
+
+[ext_resource type="PackedScene" uid="uid://bfnb85qnuyvd" path="res://scenes/test_map.tscn" id="1_hhnex"]
+[ext_resource type="PackedScene" uid="uid://dbtopm7ot8v5h" path="res://scenes/player.tscn" id="2_wiutu"]
+[ext_resource type="Script" path="res://scripts/player_script.gd" id="3_djcwf"]
+
+[node name="test_level" type="Node2D"]
+
+[node name="test_map" parent="." instance=ExtResource("1_hhnex")]
+
+[node name="Player" parent="." instance=ExtResource("2_wiutu")]
+position = Vector2(675, 124)
+script = ExtResource("3_djcwf")

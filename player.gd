@@ -66,6 +66,7 @@ func handle_death() -> void:
 	player_alive = false  # Set player as dead
 	health = 0  # Prevent health from going negative
 	print("Player has been killed")
+	get_tree().reload_current_scene()
 	#self.queue_free()  # causing a glitch NOTE learn how to make player respawn
 
 

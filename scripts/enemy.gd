@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
-var speed = 80
+var speed = 2
+const GRAVITY = 900.0
 var player_chase = false
 var player = null
+var health = 100
+var player_in_attack_zone = false
 
 func _physics_process(delta):
 	if player_chase:
-		position += (player.position - position).normalized() * speed * delta
+		position.x += (player.position.x - position.x) * speed * delta
 		move_and_collide(Vector2(0,0))
 		
 		$AnimatedSprite2D.play("Walk")
@@ -15,6 +18,12 @@ func _physics_process(delta):
 			$AnimatedSprite2D.flip_h = (position > player.position)
 	else:
 		$AnimatedSprite2D.play("Idle")
+		
+	# Apply gravity if not on the floor
+	if not is_on_floor():
+		velocity.y += GRAVITY * delta
+	else:
+		velocity.y = 0  # Reset y-velocity when on the floor
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	player = body
@@ -30,8 +39,15 @@ func enemy():
 
 
 func _on_enemy_hitbox_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	if body.has_method("player"):
+		player_in_attack_zone = true
 
 
 func _on_enemy_hitbox_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
+	if body.has_method("player"):
+		player_in_attack_zone = false
+
+func deal_with_damage():
+	if player_in_attack_zone and Global.player_current_attack == true:
+		health = health - 10
+		print("Slime health = ", health)

@@ -142,7 +142,7 @@ sprite_frames = SubResource("SpriteFrames_wonmd")
 animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.0199491
-offset = Vector2(0, -8)
+offset = Vector2(0, -7)
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 2
@@ -163,3 +163,5 @@ shape = SubResource("CircleShape2D_ytqda")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_exited"]

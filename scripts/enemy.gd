@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 2
+var speed = 50
 const GRAVITY = 900.0
 var player_chase = false
 var player = null
@@ -8,8 +8,11 @@ var health = 100
 var player_in_attack_zone = false
 
 func _physics_process(delta):
+	
+	deal_with_damage()
+	
 	if player_chase:
-		position.x += (player.position.x - position.x) * speed * delta
+		position.x =  move_toward(position.x, player.position.x, speed * delta)
 		move_and_collide(Vector2(0,0))
 		
 		$AnimatedSprite2D.play("Walk")
@@ -51,3 +54,4 @@ func deal_with_damage():
 	if player_in_attack_zone and Global.player_current_attack == true:
 		health = health - 10
 		print("Slime health = ", health)
+		#Need to make it when the slime dies, it becomes disabled, have a timer, then enabled

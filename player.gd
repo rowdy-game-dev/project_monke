@@ -12,6 +12,7 @@ var player_alive = true
 # Attack state variables
 var enemy_in_attack_range = false
 var enemy_attack_cooldown = true
+var player_attack_in_progress = false
 
 # Physics process handles movement and gravity
 func _physics_process(delta: float) -> void:

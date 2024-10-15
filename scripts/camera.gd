@@ -8,7 +8,7 @@ var current_smooth_move_factor := PLAYER_SMOOTH_MOVE_FACTOR
 
 const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
 const SMOOTH_ZOOM_FACTOR := 1.0
-const ZOOM_ALLOWANCE := 0.1
+const ZOOM_ALLOWANCE := 0.01
 
 @onready var player_node: PlayerScript = $"/root/test_level/Player"
 var previous_zoom := DEFAULT_PLAYER_ZOOM
@@ -49,12 +49,11 @@ func new_target(new_node):
 
 
 func zoom_toward_target(delta):
-	print(zoom)
 	if zoom == target_zoom: return target_zoom
 
 	if abs(target_zoom.x - zoom.x) <= ZOOM_ALLOWANCE:
-		var i = move_toward(zoom.x, target_zoom.x, 0.1 * delta)
-		return Vector2(i,i)
+		target_zoom = zoom
+		return zoom
 
 	
 	return zoom.lerp(target_zoom, SMOOTH_ZOOM_FACTOR * delta)

@@ -7,9 +7,8 @@ const DEFAULT_RUN_OFFSET := Vector2(50,0)
 var current_smooth_move_factor := PLAYER_SMOOTH_MOVE_FACTOR
 
 const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
-const ZOOM_ALLOWANCE := 0.01
-const ZOOM_COUNTER_INCREASE_PER_SECOND := 2.0
-var smooth_zoom_counter = 0
+const SMOOTH_ZOOM_FACTOR := 1.0
+const ZOOM_ALLOWANCE := 0.1
 
 @onready var player_node: PlayerScript = $"/root/test_level/Player"
 var previous_zoom := DEFAULT_PLAYER_ZOOM
@@ -46,20 +45,16 @@ func on_camera_area_exited(camera_area):
 func new_target(new_node):
 	in_camera_area = (new_node != player_node)
 	previous_zoom = zoom
-	smooth_zoom_counter = 0
 	target_node = new_node
 
 
 func zoom_toward_target(delta):
+	print(zoom)
 	if zoom == target_zoom: return target_zoom
 
 	if abs(target_zoom.x - zoom.x) <= ZOOM_ALLOWANCE:
-		smooth_zoom_counter = 0
-		return target_zoom
+		var i = move_toward(zoom.x, target_zoom.x, 0.1 * delta)
+		return Vector2(i,i)
 
-	smooth_zoom_counter += ZOOM_COUNTER_INCREASE_PER_SECOND * delta
-	var zoom_factor : float = (
-		target_zoom.x + ((previous_zoom.x - target_zoom.x)/(smooth_zoom_counter + 1))
-	)
-	print(zoom_factor)
-	return Vector2(zoom_factor,zoom_factor)
+	
+	return zoom.lerp(target_zoom, SMOOTH_ZOOM_FACTOR * delta)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bd4ybmafqyr7r"]
+[gd_scene load_steps=36 format=3 uid="uid://bd4ybmafqyr7r"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_2wt0w"]
 [ext_resource type="Texture2D" uid="uid://byc1kel1mvxqs" path="res://assets/characters/slime.png" id="1_h201x"]
@@ -63,6 +63,62 @@ region = Rect2(128, 96, 32, 32)
 atlas = ExtResource("1_h201x")
 region = Rect2(160, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kxrj"]
+atlas = ExtResource("1_h201x")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqmkl"]
+atlas = ExtResource("1_h201x")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we11c"]
+atlas = ExtResource("1_h201x")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rakh"]
+atlas = ExtResource("1_h201x")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpqpt"]
+atlas = ExtResource("1_h201x")
+region = Rect2(128, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v202v"]
+atlas = ExtResource("1_h201x")
+region = Rect2(160, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnaqa"]
+atlas = ExtResource("1_h201x")
+region = Rect2(192, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8o24"]
+atlas = ExtResource("1_h201x")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysagh"]
+atlas = ExtResource("1_h201x")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra406"]
+atlas = ExtResource("1_h201x")
+region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x7ao"]
+atlas = ExtResource("1_h201x")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtt5x"]
+atlas = ExtResource("1_h201x")
+region = Rect2(128, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32vnh"]
+atlas = ExtResource("1_h201x")
+region = Rect2(160, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uf4cc"]
+atlas = ExtResource("1_h201x")
+region = Rect2(192, 224, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wonmd"]
 animations = [{
 "frames": [{
@@ -122,7 +178,59 @@ animations = [{
 "texture": SubResource("AtlasTexture_02lk6")
 }],
 "loop": true,
-"name": &"Walk",
+"name": &"Jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kxrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqmkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we11c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rakh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpqpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v202v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnaqa")
+}],
+"loop": true,
+"name": &"Walk_To_Left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8o24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysagh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ra406")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x7ao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtt5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32vnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uf4cc")
+}],
+"loop": true,
+"name": &"Walk_To_Right",
 "speed": 10.0
 }]
 
@@ -139,9 +247,9 @@ script = ExtResource("1_2wt0w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wonmd")
-animation = &"Idle"
+animation = &"Walk_To_Right"
 autoplay = "Idle"
-frame_progress = 0.0199491
+frame_progress = 0.166443
 offset = Vector2(0, -7)
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -161,7 +269,11 @@ shape = SubResource("CircleShape2D_bcw5e")
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_ytqda")
 
+[node name="take_damage_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_entered"]
 [connection signal="body_exited" from="EnemyHitbox" to="." method="_on_enemy_hitbox_body_exited"]
+[connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]

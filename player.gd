@@ -68,7 +68,7 @@ func handle_death() -> void:
 	health = 0  # Prevent health from going negative
 	print("Player has been killed")
 	get_tree().reload_current_scene()
-	#self.queue_free()  # causing a glitch NOTE learn how to make player respawn
+	#get_parent().queue_free()  # causing a glitch NOTE learn how to make player respawn
 
 
 # Signal handler for entering enemy's hitbox

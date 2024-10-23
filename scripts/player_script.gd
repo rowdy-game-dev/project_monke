@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name PlayerScript
 
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -250.0
+const SPEED = 300.0
+const JUMP_VELOCITY = -450.0
 var air_count = 5 # Coyote-time in frames
 
 var can_double_jump = true

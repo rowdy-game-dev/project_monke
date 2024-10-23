@@ -1,6 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://dbtopm7ot8v5h"]
+[gd_scene load_steps=41 format=3 uid="uid://dbtopm7ot8v5h"]
 
 [ext_resource type="Texture2D" uid="uid://y5bi6woalnms" path="res://assets/sprites/knight.png" id="1_e78bp"]
+[ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fhlf8"]
 atlas = ExtResource("1_e78bp")
@@ -278,6 +279,7 @@ height = 14.0
 
 [node name="player" type="CharacterBody2D"]
 z_index = 5
+script = ExtResource("1_gs3rf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)

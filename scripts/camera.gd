@@ -10,7 +10,7 @@ const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
 const SMOOTH_ZOOM_FACTOR := 1.0
 const ZOOM_ALLOWANCE := 0.01
 
-@onready var player_node: PlayerScript = $"/root/test_level/Player"
+@onready var player_node: PlayerScript = get_tree().root.get_child(0).get_node("player")
 var target_node: Node2D	 = null
 var target_offset := Vector2(0,0)
 var in_camera_area := false

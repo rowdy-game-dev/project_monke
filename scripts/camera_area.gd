@@ -1,7 +1,7 @@
 extends Area2D
 
-@onready var player_node = $"/root/test_level/Player"
-@onready var camera_node = $"/root/test_level/camera"
+@onready var player_node = get_tree().root.get_child(0).get_node("player")
+@onready var camera_node = get_tree().root.get_child(0).get_node("camera")
 
 @export var global_position_is_target := true
 @export var target_position: Vector2 = Vector2()
@@ -10,7 +10,7 @@ extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if global_position_is_target:
+	if global_position_is_target: 
 		target_position = global_position
 
 	body_entered.connect(on_area_entered)

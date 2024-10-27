@@ -276,7 +276,7 @@ height = 14.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ysqs3"]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D"]
 z_index = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

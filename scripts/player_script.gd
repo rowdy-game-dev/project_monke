@@ -20,8 +20,6 @@ var target_zoom := DEFAULT_PLAYER_ZOOM
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var main_collider: CollisionShape2D = $CollisionShape2D
-@onready var wall_collision_l: CollisionShape2D = $WallCollisionL
-@onready var wall_collision_r: CollisionShape2D = $WallCollisionR
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -82,10 +80,11 @@ func animation():
 	
 	if direction > 0:
 		animated_sprite.flip_h = false
-		flip_hitbox(false)
 	elif direction < 0:
 		animated_sprite.flip_h = true
-		flip_hitbox(true)
+
+	main_collider.position.x = 20 * (1 if animated_sprite.flip_h else -1)
+	print(main_collider.position.x)
 	
 	# Play animations
 	if is_on_floor():
@@ -97,11 +96,6 @@ func animation():
 			animated_sprite.play("walk")
 	else:
 		animated_sprite.play("jump")
-
-func flip_hitbox(flip_true):
-	main_collider.position.x = 20 * int(not flip_true)
-	wall_collision_l.position.x = main_collider.position.x - 95
-	wall_collision_r.position.x = main_collider.position.x + 95
 
 func jump():
 	if Input.is_action_just_pressed("jump") and air_count >= 0: # Grounded / cotoye-time jump

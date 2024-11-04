@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dbtopm7ot8v5h"]
+[gd_scene load_steps=33 format=3 uid="uid://dbtopm7ot8v5h"]
 
 [ext_resource type="Texture2D" uid="uid://y5bi6woalnms" path="res://assets/sprites/knight.png" id="1_e78bp"]
 [ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
@@ -206,16 +206,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3comb"]
 radius = 53.0
 height = 225.0
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_ysqs3"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ieght"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pp1x5"]
 size = Vector2(5, 5)
 
 [node name="player" type="CharacterBody2D"]
@@ -228,24 +226,14 @@ animation = &"walk"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20, 12)
+position = Vector2(-20, 12)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3comb")
 
-[node name="WallCollisionL" type="CollisionShape2D" parent="."]
-position = Vector2(-75, -40)
-scale = Vector2(10, 10)
-shape = SubResource("SegmentShape2D_ysqs3")
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(0, -113)
+texture = SubResource("PlaceholderTexture2D_pp1x5")
 
-[node name="Sprite2D" type="Sprite2D" parent="WallCollisionL"]
-scale = Vector2(0.1, 0.1)
-texture = SubResource("PlaceholderTexture2D_ieght")
-
-[node name="WallCollisionR" type="CollisionShape2D" parent="."]
-position = Vector2(115, -40)
-scale = Vector2(10, 10)
-shape = SubResource("SegmentShape2D_ysqs3")
-
-[node name="Sprite2D" type="Sprite2D" parent="WallCollisionR"]
-scale = Vector2(0.1, 0.1)
-texture = SubResource("PlaceholderTexture2D_ieght")
+[node name="Sprite2D2" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(0, 113)
+texture = SubResource("PlaceholderTexture2D_pp1x5")

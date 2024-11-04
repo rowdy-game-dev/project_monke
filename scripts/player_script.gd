@@ -14,6 +14,10 @@ var dash_counter := 0 # Dash duration
 var dash_cooldown := 60 # Time between the end of a dash and the next one
 var dash_direction := Vector2(0,0)
 
+const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
+var target_position := global_position
+var target_zoom := DEFAULT_PLAYER_ZOOM
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var main_collider: CollisionShape2D = $CollisionShape2D
 @onready var wall_collision_l: CollisionShape2D = $WallCollisionL
@@ -50,6 +54,7 @@ func _physics_process(delta: float) -> void:
 	dash()
 	
 	move_and_slide()
+	target_position = global_position
 
 # Actual movement script for the dash
 func dash():
@@ -77,8 +82,10 @@ func animation():
 	
 	if direction > 0:
 		animated_sprite.flip_h = false
+		flip_hitbox(false)
 	elif direction < 0:
 		animated_sprite.flip_h = true
+		flip_hitbox(true)
 	
 	# Play animations
 	if is_on_floor():
@@ -90,6 +97,11 @@ func animation():
 			animated_sprite.play("walk")
 	else:
 		animated_sprite.play("jump")
+
+func flip_hitbox(flip_true):
+	main_collider.position.x = 20 * int(not flip_true)
+	wall_collision_l.position.x = main_collider.position.x - 95
+	wall_collision_r.position.x = main_collider.position.x + 95
 
 func jump():
 	if Input.is_action_just_pressed("jump") and air_count >= 0: # Grounded / cotoye-time jump

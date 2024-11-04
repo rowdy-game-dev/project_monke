@@ -7,6 +7,7 @@ var player = null
 var health = 100
 var player_in_attack_zone = false
 var can_take_damage = true
+var move_direction = 0  # -1 for left, 1 for right, 0 for no movement
 
 # Timer for handling random animations
 var random_animation_interval = 3.0  # Time between switching to a random animation
@@ -24,7 +25,10 @@ func _ready():
 func _physics_process(delta):
 	
 	deal_with_damage()
-	
+
+	# Move enemy if walking animation is playing
+	position.x += move_direction * speed * delta
+
 	if player_chase:
 		position.x =  move_toward(position.x, player.position.x, speed * delta)
 		move_and_collide(Vector2(0,0))
@@ -67,8 +71,16 @@ func play_random_animation():
 	# Set the flag to indicate a random animation is playing
 	is_playing_random_animation = true
 
+	# Set move direction based on animation
+	if chosen_animation == "Walk_To_Left":
+		move_direction = -1  # Move left
+	elif chosen_animation == "Walk_To_Right":
+		move_direction = 1  # Move right
+	else:
+		move_direction = 0  # No movement for other animations
+
 	# Wait until the animation finishes before switching to Idle
-	await $AnimatedSprite2D.animation_finished  # Use await for the animation
+	await $AnimatedSprite2D.animation_finished
 	is_playing_random_animation = false  # Reset the flag
 	$AnimatedSprite2D.play("Idle")  # After finishing, switch to Idle
 	

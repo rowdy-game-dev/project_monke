@@ -20,6 +20,8 @@ var target_zoom := DEFAULT_PLAYER_ZOOM
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var main_collider: CollisionShape2D = $CollisionShape2D
+@onready var wall_collision_l: CollisionShape2D = $WallCollisionL
+@onready var wall_collision_r: CollisionShape2D = $WallCollisionR
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -82,9 +84,6 @@ func animation():
 		animated_sprite.flip_h = false
 	elif direction < 0:
 		animated_sprite.flip_h = true
-
-	main_collider.position.x = 20 * (1 if animated_sprite.flip_h else -1)
-	print(main_collider.position.x)
 	
 	# Play animations
 	if is_on_floor():

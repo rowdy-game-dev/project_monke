@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dbtopm7ot8v5h"]
+[gd_scene load_steps=32 format=3 uid="uid://dbtopm7ot8v5h"]
 
 [ext_resource type="Texture2D" uid="uid://y5bi6woalnms" path="res://assets/sprites/knight.png" id="1_e78bp"]
 [ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
@@ -213,9 +213,6 @@ animations = [{
 radius = 53.0
 height = 225.0
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pp1x5"]
-size = Vector2(5, 5)
-
 [node name="player" type="CharacterBody2D"]
 z_index = 5
 script = ExtResource("1_gs3rf")
@@ -229,11 +226,3 @@ autoplay = "idle"
 position = Vector2(-20, 12)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3comb")
-
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(0, -113)
-texture = SubResource("PlaceholderTexture2D_pp1x5")
-
-[node name="Sprite2D2" type="Sprite2D" parent="CollisionShape2D"]
-position = Vector2(0, 113)
-texture = SubResource("PlaceholderTexture2D_pp1x5")

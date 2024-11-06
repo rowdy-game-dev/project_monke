@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cli84hmstprmx"]
+[gd_scene load_steps=5 format=3 uid="uid://cli84hmstprmx"]
 
 [ext_resource type="PackedScene" uid="uid://bfnb85qnuyvd" path="res://test_files/test_map.tscn" id="1_hhnex"]
 [ext_resource type="PackedScene" uid="uid://dbtopm7ot8v5h" path="res://scenes/player.tscn" id="2_wiutu"]
 [ext_resource type="PackedScene" uid="uid://g6mujgqq5e4b" path="res://scenes/camera.tscn" id="4_3w2wb"]
+[ext_resource type="PackedScene" uid="uid://bbnnndrlfw83j" path="res://scenes/camera_area.tscn" id="4_bwbj1"]
 
 [node name="test_level" type="Node2D"]
 
@@ -13,3 +14,9 @@ zoom = Vector2(2, 2)
 
 [node name="player" parent="." instance=ExtResource("2_wiutu")]
 position = Vector2(582, 92)
+scale = Vector2(0.25, 0.25)
+
+[node name="camera_area" parent="." instance=ExtResource("4_bwbj1")]
+position = Vector2(799, 222)
+scale = Vector2(4.40817, 11.0127)
+target_zoom = Vector2(1, 1)

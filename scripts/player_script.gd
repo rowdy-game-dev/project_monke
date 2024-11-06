@@ -84,7 +84,6 @@ func animation():
 		animated_sprite.flip_h = true
 
 	main_collider.position.x = 20 * (1 if animated_sprite.flip_h else -1)
-	print(main_collider.position.x)
 	
 	# Play animations
 	if is_on_floor():

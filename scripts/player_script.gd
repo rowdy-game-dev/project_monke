@@ -2,9 +2,10 @@ extends CharacterBody2D
 class_name PlayerScript
 
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -250.0
-var air_count = 5 # Coyote-time in frames
+const SPEED := 150.0
+const RUN_ACCELERATION := 300.0
+const JUMP_VELOCITY := -250.0
+var air_count := 5 # Coyote-time in frames
 
 var can_double_jump = true
 var wall_jump_count = 2 # Number of times you can wall jump before needing to land
@@ -37,18 +38,7 @@ func _physics_process(delta: float) -> void:
 	jump()
 
 	# Flips the Sprite horizontally based on direction (-1, 0, 1)
-	animation()
-
-	if direction:
-		velocity.x = direction * SPEED
-		if Input.is_action_pressed("run"):
-			velocity.x *= (3.0/2.0)
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
-	if is_on_floor() and dash_cooldown >= 2:
-		dash_cooldown -= 2
-	
+	handle_run(delta)	
 	dash()
 	
 	move_and_slide()
@@ -75,19 +65,36 @@ func dash():
 			dash_counter = 10
 			dash_cooldown = 60
 
-func animation():
-	var direction := Input.get_axis("move_left", "move_right")
+func handle_run(delta):
+	var input_direction := Vector2(
+		Input.get_axis("move_left", "move_right"),
+		Input.get_axis("move_up", "move_down")
+	)
+
+	var run_speed = SPEED
+	if Input.is_action_pressed("run"): run_speed *= 1.5
 	
-	if direction > 0:
+	if sign(input_direction.x) == sign(velocity.x) * -1:
+		velocity.x = move_toward(velocity.x, run_speed * input_direction.x, RUN_ACCELERATION * 3 * delta)
+	elif input_direction.x == 0:
+		velocity.x = move_toward(velocity.x, 0, RUN_ACCELERATION * 2 * delta)
+	else:
+		velocity.x = move_toward(velocity.x, run_speed * input_direction.x, RUN_ACCELERATION * delta)
+
+	animation(input_direction.x)
+
+func animation(x_direction):
+	
+	if x_direction > 0:
 		animated_sprite.flip_h = false
-	elif direction < 0:
+	elif x_direction < 0:
 		animated_sprite.flip_h = true
 
 	main_collider.position.x = 20 * (1 if animated_sprite.flip_h else -1)
 	
 	# Play animations
 	if is_on_floor():
-		if direction == 0:
+		if x_direction == 0:
 			animated_sprite.play("idle")
 		elif Input.is_action_pressed("run"):
 			animated_sprite.play("run")

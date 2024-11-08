@@ -17,6 +17,6 @@ position = Vector2(582, 92)
 scale = Vector2(0.25, 0.25)
 
 [node name="camera_area" parent="." instance=ExtResource("4_bwbj1")]
-position = Vector2(799, 222)
-scale = Vector2(4.40817, 11.0127)
-target_zoom = Vector2(1, 1)
+position = Vector2(573, 222)
+scale = Vector2(56.8512, 6.1163)
+target_zoom = Vector2(1.5, 1.5)

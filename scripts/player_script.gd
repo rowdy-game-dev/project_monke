@@ -1,9 +1,8 @@
 extends CharacterBody2D
 class_name PlayerScript
 
-
-const SPEED := 150.0
-const RUN_ACCELERATION := 300.0
+const SPEED := 300.0
+const RUN_ACCELERATION := 1200.0
 const JUMP_VELOCITY := -250.0
 var air_count := 5 # Coyote-time in frames
 
@@ -18,13 +17,12 @@ var dash_direction := Vector2(0,0)
 const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
 var target_position := global_position
 var target_zoom := DEFAULT_PLAYER_ZOOM
+var run_direction := 1.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var main_collider: CollisionShape2D = $CollisionShape2D
 
 func _physics_process(delta: float) -> void:
-	var direction := Input.get_axis("move_left", "move_right")
-	
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 0.75
@@ -34,12 +32,12 @@ func _physics_process(delta: float) -> void:
 		can_double_jump = true
 		wall_jump_count = 2
 
-	# Handle jump.
 	jump()
 
-	# Flips the Sprite horizontally based on direction (-1, 0, 1)
 	handle_run(delta)	
 	dash()
+	
+	# handle_attack()
 	
 	move_and_slide()
 	target_position = global_position
@@ -72,12 +70,12 @@ func handle_run(delta):
 	)
 
 	var run_speed = SPEED
-	if Input.is_action_pressed("run"): run_speed *= 1.5
+	if Input.is_action_pressed("run"): run_speed = SPEED * 1.5
 	
 	if sign(input_direction.x) == sign(velocity.x) * -1:
-		velocity.x = move_toward(velocity.x, run_speed * input_direction.x, RUN_ACCELERATION * 3 * delta)
+		velocity.x = move_toward(velocity.x, run_speed * input_direction.x, RUN_ACCELERATION * 2 * delta)
 	elif input_direction.x == 0:
-		velocity.x = move_toward(velocity.x, 0, RUN_ACCELERATION * 2 * delta)
+		velocity.x = move_toward(velocity.x, 0, RUN_ACCELERATION * delta)
 	else:
 		velocity.x = move_toward(velocity.x, run_speed * input_direction.x, RUN_ACCELERATION * delta)
 
@@ -87,8 +85,10 @@ func animation(x_direction):
 	
 	if x_direction > 0:
 		animated_sprite.flip_h = false
+		run_direction = 1.0
 	elif x_direction < 0:
 		animated_sprite.flip_h = true
+		run_direction = -1.0
 
 	main_collider.position.x = 20 * (1 if animated_sprite.flip_h else -1)
 	

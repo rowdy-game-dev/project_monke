@@ -3,15 +3,16 @@ class_name PlayerScript
 
 const SPEED := 300.0
 const RUN_ACCELERATION := 1200.0
-const JUMP_VELOCITY := -250.0
+const JUMP_VELOCITY := -600.0
 var air_count := 5 # Coyote-time in frames
 
 var can_double_jump = true
 var wall_jump_count = 2 # Number of times you can wall jump before needing to land
 
-var dashing := false # Is the character supposed to be dashing?
-var dash_counter := 0 # Dash duration
-var dash_cooldown := 60 # Time between the end of a dash and the next one
+var is_dashing := false 
+var dash_distance := 100.0
+var dash_end_position: Vector2
+var dash_cooldown_seconds := 0.0 
 var dash_direction := Vector2(0,0)
 
 const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
@@ -25,7 +26,7 @@ var run_direction := 1.0
 func _physics_process(delta: float) -> void:
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables
 	if not is_on_floor():
-		velocity += get_gravity() * delta * 0.75
+		velocity.y += 1500.0 * delta
 		air_count -= 1
 	else:
 		air_count = 5
@@ -35,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	jump()
 
 	handle_run(delta)	
-	dash()
+	dash(delta)
 	
 	# handle_attack()
 	
@@ -43,25 +44,25 @@ func _physics_process(delta: float) -> void:
 	target_position = global_position
 
 # Actual movement script for the dash
-func dash():
-	dash_counter -= 1
+func dash(delta):
 	
-	if (dash_counter > 0):
-		velocity.x = dash_direction.x * SPEED * 2
-		velocity.y = dash_direction.y * SPEED * 2
+	if is_dashing:
+		velocity = Vector2(0,0) 
+		position = position.move_toward(dash_end_position, SPEED * 2 * delta)
+		if position == dash_end_position:
+			is_dashing = false
 	else:
-		dashing = false
-		dash_cooldown -= 1
+		dash_cooldown_seconds -= 1.0 * delta
 
-	if dash_cooldown <= 0 and Input.is_action_just_pressed("dash"):
+	if dash_cooldown_seconds <= 0 and Input.is_action_just_pressed("dash"):
 		dash_direction = Vector2(
 			Input.get_axis("move_left", "move_right"),
 			Input.get_axis("move_up", "move_down")
 		)
 		if not dash_direction.is_zero_approx():
-			dashing = true
-			dash_counter = 10
-			dash_cooldown = 60
+			is_dashing = true
+			dash_end_position = dash_direction.normalized() * dash_distance + position
+			dash_cooldown_seconds = 1.0
 
 func handle_run(delta):
 	var input_direction := Vector2(

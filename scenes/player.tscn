@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://dbtopm7ot8v5h"]
 
 [ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
-[ext_resource type="Texture2D" uid="uid://b648bdps2jh2t" path="res://assets/ECHO Running final.png" id="3_ec013"]
+[ext_resource type="Texture2D" uid="uid://bfnlj8btq1db5" path="res://assets/ECHO Running final.png" id="3_ec013"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hjt2v"]
 atlas = ExtResource("3_ec013")
@@ -93,12 +93,12 @@ size = Vector2(20, 100)
 z_index = 5
 script = ExtResource("1_gs3rf")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5kmm5")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="main_collider" type="CollisionShape2D" parent="."]
 position = Vector2(-20, 12)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3comb")

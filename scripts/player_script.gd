@@ -3,7 +3,7 @@ class_name PlayerScript
 
 const SPEED := 300.0
 const RUN_ACCELERATION := 1200.0
-const JUMP_VELOCITY := -600.0
+const JUMP_VELOCITY := -300.0
 var air_count := 5 # Coyote-time in frames
 
 var can_double_jump = true
@@ -20,13 +20,15 @@ var target_position := global_position
 var target_zoom := DEFAULT_PLAYER_ZOOM
 var run_direction := 1.0
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var main_collider: CollisionShape2D = $CollisionShape2D
+@onready var animated_sprite: AnimatedSprite2D = $animated_sprite
+@onready var main_collider: CollisionShape2D = $main_collider
 
 func _physics_process(delta: float) -> void:
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables
 	if not is_on_floor():
-		velocity.y += 1500.0 * delta
+		print(get_gravity())
+		velocity += get_gravity() * delta
+		if velocity.y >=0: print(position.y)
 		air_count -= 1
 	else:
 		air_count = 5

@@ -3,7 +3,7 @@ class_name PlayerScript
 
 const SPEED := 300.0
 const RUN_ACCELERATION := 1200.0
-const JUMP_VELOCITY := -300.0
+const JUMP_VELOCITY := -400.0
 var air_count := 5 # Coyote-time in frames
 
 var can_double_jump = true

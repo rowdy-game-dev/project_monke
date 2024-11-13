@@ -22,31 +22,35 @@ var run_direction := 1.0
 
 @onready var animated_sprite: AnimatedSprite2D = $animated_sprite
 @onready var main_collider: CollisionShape2D = $main_collider
+@onready var attack_cast := $attack_cast
 
 func _physics_process(delta: float) -> void:
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables
 	if not is_on_floor():
-		print(get_gravity())
 		velocity += get_gravity() * delta
-		if velocity.y >=0: print(position.y)
 		air_count -= 1
 	else:
 		air_count = 5
 		can_double_jump = true
 		wall_jump_count = 2
 
-	jump()
+	_handle_jump()
 
-	handle_run(delta)	
-	dash(delta)
+	_handle_run(delta)	
+	_handle_dash(delta)
 	
-	# handle_attack()
+	_handle_attack()
 	
 	move_and_slide()
 	target_position = global_position
 
+func flip(node: Node = self):
+	for child in node.get_children():
+		flip(child)
+	if node != self: node.position.x *= -1
+
 # Actual movement script for the dash
-func dash(delta):
+func _handle_dash(delta):
 	
 	if is_dashing:
 		velocity = Vector2(0,0) 
@@ -66,7 +70,7 @@ func dash(delta):
 			dash_end_position = dash_direction.normalized() * dash_distance + position
 			dash_cooldown_seconds = 1.0
 
-func handle_run(delta):
+func _handle_run(delta):
 	var input_direction := Vector2(
 		Input.get_axis("move_left", "move_right"),
 		Input.get_axis("move_up", "move_down")
@@ -82,19 +86,14 @@ func handle_run(delta):
 	else:
 		velocity.x = move_toward(velocity.x, run_speed * input_direction.x, RUN_ACCELERATION * delta)
 
-	animation(input_direction.x)
+	_handle_animation(input_direction.x)
 
-func animation(x_direction):
-	
-	if x_direction > 0:
-		animated_sprite.flip_h = false
-		run_direction = 1.0
-	elif x_direction < 0:
-		animated_sprite.flip_h = true
-		run_direction = -1.0
+func _handle_animation(x_direction):
+	if x_direction != 0 and x_direction != run_direction:
+		animated_sprite.flip_h = not animated_sprite.flip_h
+		flip()
+		run_direction = sign(x_direction)
 
-	main_collider.position.x = 20 * (1 if animated_sprite.flip_h else -1)
-	
 	# Play animations
 	if is_on_floor():
 		if x_direction == 0:
@@ -106,7 +105,7 @@ func animation(x_direction):
 	else:
 		animated_sprite.play("jump")
 
-func jump():
+func _handle_jump():
 	if Input.is_action_just_pressed("jump") and air_count >= 0: # Grounded / cotoye-time jump
 		velocity.y = JUMP_VELOCITY
 	elif Input.is_action_just_pressed("jump") and is_on_wall_only() and wall_jump_count > 0: # Wall jump
@@ -116,3 +115,7 @@ func jump():
 		velocity.y = JUMP_VELOCITY*0.9
 		can_double_jump = false
 	
+func _handle_attack():
+	if Input.is_action_just_pressed("attack"):
+		for enemy in attack_cast.get_overlapping_bodies():
+			enemy.take_damage(10)

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cx2kmyhow3bbt" path="res://assets/map assets/Blue Tileset.png" id="1_tdn7l"]
 [ext_resource type="Texture2D" uid="uid://dml063q71mnw0" path="res://assets/map assets/Platforms Blue.png" id="2_bfgv5"]
 [ext_resource type="PackedScene" uid="uid://dbtopm7ot8v5h" path="res://scenes/player.tscn" id="2_jdjt4"]
-[ext_resource type="Script" path="res://scripts/player_script.gd" id="3_itb7b"]
+[ext_resource type="AudioStream" uid="uid://dcged14jf40xe" path="res://Music/Dawn.mp3" id="4_fx6th"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yisa5"]
 texture = ExtResource("1_tdn7l")
@@ -298,8 +298,11 @@ layer_0/tile_data = PackedInt32Array(0, 1900544, 2, 65536, 1900544, 2, 1, 190054
 
 [node name="Player" parent="." instance=ExtResource("2_jdjt4")]
 position = Vector2(487, 42)
-scale = Vector2(2, 2)
-script = ExtResource("3_itb7b")
+scale = Vector2(0.5, 0.5)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
+
+[node name="dawn_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fx6th")
+autoplay = true

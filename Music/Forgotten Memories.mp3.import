@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c07ckb4dk46ar"
+path="res://.godot/imported/Forgotten Memories.mp3-b4ebf1ea18e8b55ac869aa543361b4b6.mp3str"
+
+[deps]
+
+source_file="res://Music/Forgotten Memories.mp3"
+dest_files=["res://.godot/imported/Forgotten Memories.mp3-b4ebf1ea18e8b55ac869aa543361b4b6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

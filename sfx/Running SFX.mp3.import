@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dn8h6p1jsb8ux"
+path="res://.godot/imported/Running SFX.mp3-62e52e22b9becda34ce62c170c02666f.mp3str"
+
+[deps]
+
+source_file="res://sfx/Running SFX.mp3"
+dest_files=["res://.godot/imported/Running SFX.mp3-62e52e22b9becda34ce62c170c02666f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

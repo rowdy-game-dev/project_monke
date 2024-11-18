@@ -22,11 +22,12 @@ var target_zoom := DEFAULT_PLAYER_ZOOM
 var run_direction := 1.0
 
 @onready var animated_sprite: AnimatedSprite2D = $animated_sprite
-@onready var main_collider: CollisionShape2D = $main_collider
+@onready var main_collider:= $main_collider
 @onready var attack_cast := $attack_cast
 
 func _ready():
 	active_node = self
+	CameraScript.active_node.player_node = active_node
 
 func _physics_process(delta: float) -> void:
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables
@@ -48,10 +49,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	target_position = global_position
 
+
 func flip(node: Node = self):
 	for child in node.get_children():
 		flip(child)
 	if node != self: node.position.x *= -1
+
 
 # Actual movement script for the dash
 func _handle_dash(delta):
@@ -74,6 +77,7 @@ func _handle_dash(delta):
 			dash_end_position = dash_direction.normalized() * dash_distance + position
 			dash_cooldown_seconds = 1.0
 
+
 func _handle_run(delta):
 	var input_direction := Vector2(
 		Input.get_axis("move_left", "move_right"),
@@ -92,6 +96,7 @@ func _handle_run(delta):
 
 	_handle_animation(input_direction.x)
 
+
 func _handle_animation(x_direction):
 	if x_direction != 0 and x_direction != run_direction:
 		animated_sprite.flip_h = not animated_sprite.flip_h
@@ -109,6 +114,7 @@ func _handle_animation(x_direction):
 	else:
 		animated_sprite.play("jump")
 
+
 func _handle_jump():
 	if Input.is_action_just_pressed("jump") and air_count >= 0: # Grounded / cotoye-time jump
 		velocity.y = JUMP_VELOCITY
@@ -119,7 +125,9 @@ func _handle_jump():
 		velocity.y = JUMP_VELOCITY*0.9
 		can_double_jump = false
 	
+
 func _handle_attack():
 	if Input.is_action_just_pressed("attack"):
 		for enemy in attack_cast.get_overlapping_bodies():
 			enemy.take_damage(10)
+

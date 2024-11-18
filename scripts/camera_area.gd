@@ -1,7 +1,9 @@
+class_name CameraAreaScript
 extends Area2D
+static var all_areas_list := []
 
-@onready var player_node = get_tree().root.get_child(0).get_node("player")
-@onready var camera_node = get_tree().root.get_child(0).get_node("camera")
+@onready var player_node := get_tree().root.get_child(0).get_node("player")
+@onready var camera_node := get_tree().root.get_child(0).get_node("camera")
 
 @export var global_position_is_target := true
 @export var target_position: Vector2 = Vector2()
@@ -15,6 +17,8 @@ func _ready() -> void:
 
 	body_entered.connect(on_area_entered)
 	body_exited.connect(on_area_exited)
+
+	all_areas_list.append(self)
 
 func on_area_entered(body):
 	if body == player_node:

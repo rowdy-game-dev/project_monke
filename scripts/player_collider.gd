@@ -39,6 +39,8 @@ func _process(delta: float) -> void:
 		on_stance_change(Stance.IDLE)
 	else:
 		on_stance_change(Stance.RUNNING)
+	
+	set_direction(get_parent().run_direction)
 
 func _ready() -> void:
 	on_stance_change(current_stance)

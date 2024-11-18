@@ -21,5 +21,5 @@ func on_area_entered(body):
 		camera_node.on_camera_area_entered(self)
 
 func on_area_exited(body):
-	if body == player_node:
+	if body == player_node and player_node not in get_overlapping_areas():
 		camera_node.on_camera_area_exited(self)

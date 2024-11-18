@@ -16,9 +16,9 @@ var stance_transforms = {
 	Stance.IDLE: {
 		"shape": (func(): 
 			var shape = RectangleShape2D.new()
-			shape.size = Vector2(90,150)
+			shape.size = Vector2(100,155)
 			return shape).call(),
-		"relative_position": Vector2(5,-30)
+		"relative_position": Vector2(-0.25,-12.25)
 	},
 }
 
@@ -41,9 +41,10 @@ func set_direction(run_direction):
 	
 
 func _process(delta: float) -> void:
-	if Input.is_key_pressed(KEY_SPACE):
+	if $"../animated_sprite".animation == "idle":
 		on_stance_change(Stance.IDLE)
-	print(shape, position)
+	else:
+		on_stance_change(Stance.RUNNING)
 
 func _ready() -> void:
 	on_stance_change(current_stance)

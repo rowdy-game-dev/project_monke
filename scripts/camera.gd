@@ -35,8 +35,11 @@ func on_camera_area_exited(camera_area):
 		current_smooth_move_factor = PLAYER_SMOOTH_MOVE_FACTOR
 
 func new_target(new_node):
+	if new_node == target_node: return
+
 	in_camera_area = (new_node != player_node)
 	target_node = new_node
+	current_smooth_move_factor = AREA_SMOOTH_MOVE_FACTOR if in_camera_area else PLAYER_SMOOTH_MOVE_FACTOR
 
 func move_toward_target(delta):
 	var target_position: Vector2 = target_node.target_position

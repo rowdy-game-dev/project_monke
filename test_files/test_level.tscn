@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bfnb85qnuyvd" path="res://test_files/test_map.tscn" id="1_hhnex"]
 [ext_resource type="PackedScene" uid="uid://dbtopm7ot8v5h" path="res://scenes/player.tscn" id="2_wiutu"]
-[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="4_3w2wb"]
+[ext_resource type="PackedScene" uid="uid://g6mujgqq5e4b" path="res://scenes/camera.tscn" id="4_3w2wb"]
 [ext_resource type="PackedScene" uid="uid://b6781rniqyvb5" path="res://scenes/camera_area.tscn" id="4_bwbj1"]
-[ext_resource type="PackedScene" uid="uid://bqax6451qkwh" path="res://test_files/test_enemy.tscn" id="5_1tuiw"]
+[ext_resource type="PackedScene" uid="uid://bwkg42imsbs0b" path="res://test_files/test_enemy.tscn" id="5_1tuiw"]
 
 [node name="test_level" type="Node2D"]
 
@@ -20,7 +20,7 @@ global_position_is_target = false
 target_position = Vector2(720, 230)
 
 [node name="enemy" parent="." instance=ExtResource("5_1tuiw")]
-position = Vector2(756, 269)
+position = Vector2(-41, 347)
 
 [node name="player" parent="." instance=ExtResource("2_wiutu")]
 position = Vector2(561, 155)

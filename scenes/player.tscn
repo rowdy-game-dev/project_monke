@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://dbtopm7ot8v5h"]
 
 [ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
-[ext_resource type="Texture2D" uid="uid://deauuxmtav5hv" path="res://assets/Echo Idle.png" id="2_c0n31"]
-[ext_resource type="Texture2D" uid="uid://dwvwviyce3v7x" path="res://assets/ECHO Running final.png" id="3_ec013"]
+[ext_resource type="Texture2D" uid="uid://bcxbch6e10mop" path="res://assets/Echo Idle.png" id="2_c0n31"]
+[ext_resource type="Texture2D" uid="uid://cg4rlxjthe0ej" path="res://assets/ECHO Running final.png" id="3_ec013"]
 [ext_resource type="Script" path="res://scripts/player_collider.gd" id="4_j38sk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrbnx"]
@@ -139,3 +139,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attack_cast"]
 shape = SubResource("RectangleShape2D_gyy1v")
+
+[node name="dash_cast" type="ShapeCast2D" parent="."]
+shape = SubResource("RectangleShape2D_rlsqq")

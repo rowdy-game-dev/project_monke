@@ -1,6 +1,6 @@
 extends Camera2D
 class_name CameraScript
-static var active_node: CameraScript = self
+static var active_node: CameraScript
 
 const PLAYER_SMOOTH_MOVE_FACTOR := 4.0
 const AREA_SMOOTH_MOVE_FACTOR := 3.0
@@ -11,7 +11,7 @@ const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
 const SMOOTH_ZOOM_FACTOR := 1.0
 const ZOOM_ALLOWANCE := 0.01
 
-@onready var player_node := PlayerScript.active_node
+@onready var player_node := get_tree().root.get_child(0).get_node("player")
 var target_node: Node2D = null
 var target_offset := Vector2(0,0)
 var in_camera_area := false

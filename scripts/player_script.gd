@@ -24,10 +24,12 @@ var run_direction := 1.0
 @onready var animated_sprite: AnimatedSprite2D = $animated_sprite
 @onready var main_collider:= $main_collider
 @onready var attack_cast := $attack_cast
+@onready var dash_cast := $dash_cast
 
 func _ready():
 	active_node = self
 	CameraScript.active_node.player_node = active_node
+
 
 func _physics_process(delta: float) -> void:
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables
@@ -58,7 +60,7 @@ func flip(node: Node = self):
 
 # Actual movement script for the dash
 func _handle_dash(delta):
-	
+
 	if is_dashing:
 		velocity = Vector2(0,0) 
 		position = position.move_toward(dash_end_position, SPEED * 2 * delta)
@@ -71,10 +73,15 @@ func _handle_dash(delta):
 		dash_direction = Vector2(
 			Input.get_axis("move_left", "move_right"),
 			Input.get_axis("move_up", "move_down")
-		)
+		).normalized()
+
 		if not dash_direction.is_zero_approx():
+			# dash_cast.shape = main_collider.shape
+			dash_cast.target_position = dash_direction * dash_distance
+			dash_end_position = (dash_direction * dash_distance * dash_cast.get_closest_collision_safe_fraction()) + position
+			print(dash_cast.get_closest_collision_safe_fraction())
+
 			is_dashing = true
-			dash_end_position = dash_direction.normalized() * dash_distance + position
 			dash_cooldown_seconds = 1.0
 
 

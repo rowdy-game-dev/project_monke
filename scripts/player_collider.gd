@@ -7,18 +7,12 @@ enum Stance {
 
 var stance_transforms = {
 	Stance.RUNNING: {
-		"shape": (func(): 
-			var shape = RectangleShape2D.new()
-			shape.size = Vector2(145,105)
-			return shape).call(),
-		"relative_position": Vector2(22,12)
+		"shape_size": Vector2(145,105),
+		"relative_position": Vector2(22,12),
 	},
 	Stance.IDLE: {
-		"shape": (func(): 
-			var shape = RectangleShape2D.new()
-			shape.size = Vector2(100,155)
-			return shape).call(),
-		"relative_position": Vector2(-0.25,-12.25)
+		"shape_size": Vector2(100,155),
+		"relative_position": Vector2(-0.25,-12.25),
 	},
 }
 
@@ -28,7 +22,7 @@ var is_flipped := false
 func on_stance_change(stance: Stance):
 	current_stance = stance
 	var stance_transform = stance_transforms[stance]
-	shape = stance_transform["shape"]
+	shape.size = stance_transform["shape_size"]
 	position = stance_transform["relative_position"]
 	if is_flipped: position.x *= -1
 

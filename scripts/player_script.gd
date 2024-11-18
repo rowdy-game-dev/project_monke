@@ -1,5 +1,6 @@
 extends CharacterBody2D
 class_name PlayerScript
+static var active_node: PlayerScript
 
 const SPEED := 300.0
 const RUN_ACCELERATION := 1200.0
@@ -23,6 +24,9 @@ var run_direction := 1.0
 @onready var animated_sprite: AnimatedSprite2D = $animated_sprite
 @onready var main_collider: CollisionShape2D = $main_collider
 @onready var attack_cast := $attack_cast
+
+func _ready():
+	active_node = self
 
 func _physics_process(delta: float) -> void:
 	# If not on the floor, add gravity. Else, reset ungrounded movement variables

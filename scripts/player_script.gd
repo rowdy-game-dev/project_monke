@@ -60,6 +60,17 @@ func flip(node: Node = self):
 
 # Actual movement script for the dash
 func _handle_dash(delta):
+	dash_direction = global_position.direction_to(get_global_mouse_position())
+	#Vector2(
+	# 	Input.get_axis("move_left", "move_right"),
+	# 	Input.get_axis("move_up", "move_down")
+	# ).normalized()
+	dash_cast.shape = main_collider.shape
+	dash_cast.position = main_collider.position
+	dash_cast.target_position = dash_direction * dash_distance
+	$debug_thingy.texture.size = main_collider.shape.size
+	if not is_dashing: $debug_thingy.position = dash_cast.target_position # * dash_cast.get_closest_collision_safe_fraction()
+	print(dash_direction, dash_distance, target_position)
 
 	if is_dashing:
 		velocity = Vector2(0,0) 
@@ -69,18 +80,11 @@ func _handle_dash(delta):
 	else:
 		dash_cooldown_seconds -= 1.0 * delta
 
-	if dash_cooldown_seconds <= 0 and Input.is_action_just_pressed("dash"):
-		dash_direction = Vector2(
-			Input.get_axis("move_left", "move_right"),
-			Input.get_axis("move_up", "move_down")
-		).normalized()
+	if Input.is_action_just_pressed("dash") and dash_cooldown_seconds <= 0:
 
 		if not dash_direction.is_zero_approx():
-			# dash_cast.shape = main_collider.shape
-			dash_cast.target_position = dash_direction * dash_distance
-			dash_end_position = (dash_direction * dash_distance * dash_cast.get_closest_collision_safe_fraction()) + position
-			print(dash_cast.get_closest_collision_safe_fraction())
-
+			dash_end_position = (dash_cast.target_position * dash_cast.get_closest_collision_safe_fraction()) + position
+		
 			is_dashing = true
 			dash_cooldown_seconds = 1.0
 
@@ -137,4 +141,3 @@ func _handle_attack():
 	if Input.is_action_just_pressed("attack"):
 		for enemy in attack_cast.get_overlapping_bodies():
 			enemy.take_damage(10)
-

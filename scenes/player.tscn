@@ -1,9 +1,9 @@
 [gd_scene load_steps=26 format=3 uid="uid://dbtopm7ot8v5h"]
 
 [ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
-[ext_resource type="Texture2D" uid="uid://8ht7e4gi23i4" path="res://assets/Echo Idle.png" id="2_c0n31"]
-[ext_resource type="Texture2D" uid="uid://b6o4dk3qnmpbd" path="res://assets/ECHO Running final.png" id="3_ec013"]
-[ext_resource type="Texture2D" uid="uid://d24rburgf3onn" path="res://assets/ECHO Fight.png" id="4_bpbjf"]
+[ext_resource type="Texture2D" uid="uid://bwbblxrdjrc4o" path="res://assets/Echo Idle.png" id="2_c0n31"]
+[ext_resource type="Texture2D" uid="uid://tycdi40wtay" path="res://assets/ECHO Running final.png" id="3_ec013"]
+[ext_resource type="Texture2D" uid="uid://p01ictti3wtl" path="res://assets/ECHO Fight.png" id="4_bpbjf"]
 [ext_resource type="Script" path="res://scripts/player_collider.gd" id="4_j38sk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrbnx"]
@@ -161,10 +161,13 @@ size = Vector2(150, 100)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 5
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_gs3rf")
 
 [node name="animated_sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5kmm5")
+animation = &"idle"
 autoplay = "idle"
 
 [node name="main_collider" type="CollisionShape2D" parent="."]

@@ -154,10 +154,12 @@ func _handle_jump():
     
 
 func _handle_attack():
-    if Input.is_action_just_pressed("attack")\
-    and not is_attacking\
-    and is_on_floor():
+    if (Input.is_action_just_pressed("attack")
+    and not is_attacking
+    and is_on_floor()):
         animated_sprite.play("slap")
         is_attacking = true
         for enemy in attack_cast.get_overlapping_bodies():
+            if enemy.name == self.name: continue
             enemy.take_damage(10)
+            enemy.velocity = position.direction_to(enemy.position) * 100

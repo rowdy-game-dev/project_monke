@@ -29,6 +29,11 @@ func _ready():
     active_node = self
     CameraScript.active_node.player_node = active_node
 
+    animated_sprite.animation_finished.connect(func():
+        if animated_sprite.animation == "slap" and animated_sprite.frame:
+            animated_sprite.play("idle")
+    )
+
 
 func _physics_process(delta: float) -> void:
     # If not on the floor, add gravity. Else, reset ungrounded movement variables
@@ -145,5 +150,6 @@ func _handle_jump():
 
 func _handle_attack():
     if Input.is_action_just_pressed("attack"):
+        animated_sprite.play("slap")
         for enemy in attack_cast.get_overlapping_bodies():
             enemy.take_damage(10)

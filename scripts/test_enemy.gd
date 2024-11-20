@@ -40,13 +40,21 @@ func body_jump(delta):
 
 func take_damage(damage: int):
     health_points -= damage
+    
 
     if health_points <= 0:
         kill()
+    else:
+        hit_animation()
 
+func hit_animation():
+    $GPUParticles2D.amount = 10
+    $GPUParticles2D.restart()
+    
 func kill():
     $AnimatedSprite2D.visible = false
     $main_hitbox.free()
+    $GPUParticles2D.amount = 50
     $GPUParticles2D.restart()
     $GPUParticles2D.finished.connect(func():
         queue_free()

@@ -28,6 +28,8 @@ var run_direction := 1.0
 @onready var attack_cast := $attack_cast
 
 func _ready():
+    CameraScript.active_node.player_node = self
+    
     active_node = self
     CameraScript.active_node.player_node = active_node
 

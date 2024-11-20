@@ -4,12 +4,14 @@ const MAX_HEALTH_POINTS = 40
 var health_points = MAX_HEALTH_POINTS
 
 var walk_direction = 1.0
+var hit_cooldown := 0.0
 
 @onready var main_hitbox := $main_hitbox
 @onready var agro_area := $agro_area
+@onready var hit_area: Area2D = $hit_area
 
 func _ready() -> void:
-    pass
+    hit_area.body_entered.connect(_hit_player)
 
 func _process(delta: float) -> void:
     _move_toward_player(delta)
@@ -18,12 +20,21 @@ func _process(delta: float) -> void:
 
     if walk_direction != 0:
         $AnimatedSprite2D.flip_h = false if walk_direction > 0 else true
+
+    hit_cooldown -= delta
+        
     _gravity(delta)
     move_and_slide()
 
 func _handle_jump(delta):
     if is_on_wall():
         body_jump(delta)
+
+func _hit_player(body):
+    if body.name == "player" and hit_cooldown < 0:
+        body.take_damage(25)
+        hit_cooldown = 2.0
+        print("rat attack")
 
 func body_jump(delta):
     if get_node_or_null("jumping_countdown"): return

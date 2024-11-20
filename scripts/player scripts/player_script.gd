@@ -23,6 +23,8 @@ var target_position := global_position
 var target_zoom := DEFAULT_PLAYER_ZOOM
 var run_direction := 1.0
 
+var health_points := 100
+
 @onready var animated_sprite: AnimatedSprite2D = $animated_sprite
 @onready var main_collider:= $main_collider
 @onready var attack_cast := $attack_cast
@@ -79,7 +81,7 @@ func _handle_dash(delta):
             Input.get_axis("move_left", "move_right"),
             Input.get_axis("move_up", "move_down")
         ).normalized() # normalized input direction as Vector2
-
+        if dash_direction.is_zero_approx(): return
         # create and add timer as child (this shit sucks ass but i need something to work)
         var timer = Timer.new()
         timer.name = "dash_timer"
@@ -108,6 +110,11 @@ func _handle_dash(delta):
         dash_particles.restart()
         is_dashing = true
 
+func take_damage(damage: int):
+    health_points -= damage
+
+    if health_points <= 0:
+        get_tree().change_scene_to_file("res://test_files/test_level.tscn")
 
 func _handle_run(delta):
     var input_direction := Vector2(

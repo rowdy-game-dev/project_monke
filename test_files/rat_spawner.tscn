@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 		get_parent().add_child((func():
 			var rat := rat_scene.instantiate()
 			rat.global_position = global_position
+			rat.attack_damage = 10000
 			rat.scale = Vector2(.15,.15)
 			rat.health_points = 1
 			return rat

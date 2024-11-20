@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const MAX_HEALTH_POINTS = 40
 var health_points = MAX_HEALTH_POINTS
+var attack_damage := 10
 
 var walk_direction = 1.0
 var hit_cooldown := 0.0
@@ -32,7 +33,7 @@ func _handle_jump(delta):
 
 func _hit_player(body):
     if body.name == "player" and hit_cooldown < 0:
-        body.take_damage(25)
+        body.take_damage(attack_damage)
         hit_cooldown = 2.0
         print("rat attack")
 

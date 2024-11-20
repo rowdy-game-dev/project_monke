@@ -1,10 +1,10 @@
 [gd_scene load_steps=26 format=3 uid="uid://dbtopm7ot8v5h"]
 
-[ext_resource type="Script" path="res://scripts/player_script.gd" id="1_gs3rf"]
-[ext_resource type="Texture2D" uid="uid://bwbblxrdjrc4o" path="res://assets/Echo Idle.png" id="2_c0n31"]
-[ext_resource type="Texture2D" uid="uid://tycdi40wtay" path="res://assets/ECHO Running final.png" id="3_ec013"]
-[ext_resource type="Texture2D" uid="uid://p01ictti3wtl" path="res://assets/ECHO Fight.png" id="4_bpbjf"]
-[ext_resource type="Script" path="res://scripts/player_collider.gd" id="4_j38sk"]
+[ext_resource type="Script" path="res://scripts/player scripts/player_script.gd" id="1_gs3rf"]
+[ext_resource type="Texture2D" uid="uid://vos35cco5qxx" path="res://assets/Echo Idle.png" id="2_c0n31"]
+[ext_resource type="Texture2D" uid="uid://by4fxkkpuc8o0" path="res://assets/ECHO Running final.png" id="3_ec013"]
+[ext_resource type="Texture2D" uid="uid://bk81ijknf66ge" path="res://assets/ECHO Fight.png" id="4_bpbjf"]
+[ext_resource type="Script" path="res://scripts/player scripts/player_collider.gd" id="4_j38sk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xrbnx"]
 atlas = ExtResource("2_c0n31")

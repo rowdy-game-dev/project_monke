@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7xavlnbqm338"]
+
+[sub_resource type="GDScript" id="GDScript_77cft"]
+resource_name = "rat_spawner_script"
+script/source = "extends Node2D
+
+var rat_scene := preload(\"res://test_files/test_enemy.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	global_position = get_global_mouse_position()
+	
+	if Input.is_key_pressed(KEY_R):
+		get_parent().add_child((func():
+			var rat := rat_scene.instantiate()
+			rat.global_position = global_position
+			rat.scale = Vector2(.15,.15)
+			rat.health_points = 1
+			return rat
+		).call())
+"
+
+[node name="rat_spawner" type="Node2D"]
+script = SubResource("GDScript_77cft")

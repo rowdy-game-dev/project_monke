@@ -16,6 +16,8 @@ var dash_end_position: Vector2
 var dash_cooldown_seconds := 0.0 
 var dash_direction := Vector2(0,0)
 
+var is_attacking := false
+
 const DEFAULT_PLAYER_ZOOM := Vector2(2,2)
 var target_position := global_position
 var target_zoom := DEFAULT_PLAYER_ZOOM
@@ -30,8 +32,9 @@ func _ready():
     CameraScript.active_node.player_node = active_node
 
     animated_sprite.animation_finished.connect(func():
-        if animated_sprite.animation == "slap" and animated_sprite.frame:
+        if animated_sprite.animation == "slap":
             animated_sprite.play("idle")
+            is_attacking = false
     )
 
 
@@ -124,7 +127,9 @@ func _handle_animation(x_direction):
         animated_sprite.flip_h = not animated_sprite.flip_h
         flip()
         run_direction = sign(x_direction)
-
+    
+    if is_attacking: return
+    
     # Play animations
     if is_on_floor():
         if x_direction == 0:
@@ -149,7 +154,10 @@ func _handle_jump():
     
 
 func _handle_attack():
-    if Input.is_action_just_pressed("attack"):
+    if Input.is_action_just_pressed("attack")\
+    and not is_attacking\
+    and is_on_floor():
         animated_sprite.play("slap")
+        is_attacking = true
         for enemy in attack_cast.get_overlapping_bodies():
             enemy.take_damage(10)

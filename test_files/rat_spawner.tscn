@@ -4,7 +4,7 @@
 resource_name = "rat_spawner_script"
 script/source = "extends Node2D
 
-var rat_scene := preload(\"res://test_files/test_enemy.tscn\")
+var rat_scene := preload(\"res://scenes/rat_enemy.tscn\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

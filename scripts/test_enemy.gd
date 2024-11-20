@@ -46,6 +46,7 @@ func take_damage(damage: int):
 
 func kill():
     $AnimatedSprite2D.visible = false
+    $main_hitbox.free()
     $GPUParticles2D.restart()
     $GPUParticles2D.finished.connect(func():
         queue_free()

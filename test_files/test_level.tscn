@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cli84hmstprmx"]
+[gd_scene load_steps=7 format=3 uid="uid://cli84hmstprmx"]
 
 [ext_resource type="PackedScene" uid="uid://bfnb85qnuyvd" path="res://test_files/test_map.tscn" id="1_hhnex"]
 [ext_resource type="PackedScene" uid="uid://dbtopm7ot8v5h" path="res://scenes/player.tscn" id="2_wiutu"]
 [ext_resource type="PackedScene" uid="uid://g6mujgqq5e4b" path="res://scenes/camera.tscn" id="4_3w2wb"]
 [ext_resource type="PackedScene" uid="uid://b6781rniqyvb5" path="res://scenes/camera_area.tscn" id="4_bwbj1"]
-[ext_resource type="PackedScene" uid="uid://bwkg42imsbs0b" path="res://test_files/test_enemy.tscn" id="5_d1bst"]
+[ext_resource type="PackedScene" uid="uid://bwkg42imsbs0b" path="res://scenes/rat_enemy.tscn" id="5_d1bst"]
+[ext_resource type="PackedScene" uid="uid://b7xavlnbqm338" path="res://test_files/rat_spawner.tscn" id="6_x52x2"]
 
 [node name="test_level" type="Node2D"]
+
+[node name="rat_spawner" parent="." instance=ExtResource("6_x52x2")]
 
 [node name="test_map" parent="." instance=ExtResource("1_hhnex")]
 

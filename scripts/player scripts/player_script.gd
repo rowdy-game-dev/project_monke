@@ -26,6 +26,7 @@ var run_direction := 1.0
 @onready var animated_sprite: AnimatedSprite2D = $animated_sprite
 @onready var main_collider:= $main_collider
 @onready var attack_cast := $attack_cast
+@onready var dash_particles := $dash_particles
 
 func _ready():
     CameraScript.active_node.player_node = self
@@ -96,6 +97,7 @@ func _handle_dash(delta):
                 dash_cooldown_seconds = 0.0
                 timer.queue_free()
                 cooldown_timer.queue_free()
+                dash_particles.emitting = false
             )
             add_child(cooldown_timer)
             cooldown_timer.start()
@@ -103,7 +105,9 @@ func _handle_dash(delta):
         add_child(timer)
         timer.start()
 
+        dash_particles.restart()
         is_dashing = true
+
 
 func _handle_run(delta):
     var input_direction := Vector2(

@@ -18,7 +18,7 @@ zoom = Vector2(2, 2)
 
 [node name="camera_area" parent="." instance=ExtResource("4_bwbj1")]
 position = Vector2(574, 263)
-scale = Vector2(56.6079, 6.14938)
+scale = Vector2(8.3279, 6.14938)
 global_position_is_target = false
 target_position = Vector2(720, 230)
 
@@ -27,5 +27,5 @@ position = Vector2(561, 155)
 scale = Vector2(0.25, 0.25)
 
 [node name="enemy" parent="." instance=ExtResource("5_d1bst")]
-position = Vector2(740, 160)
+position = Vector2(521, 231)
 scale = Vector2(0.2, 0.2)

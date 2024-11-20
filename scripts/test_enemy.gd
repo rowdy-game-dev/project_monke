@@ -62,12 +62,16 @@ func kill():
     
 
 func _move_toward_player(delta):
-    for body in agro_area.get_overlapping_bodies():
+    var overlapping_bodies = agro_area.get_overlapping_bodies()
+
+    for body in overlapping_bodies:
         if body.name == "player":
             walk_direction = sign(body.global_position.x - global_position.x)
             velocity.x = move_toward(velocity.x,
             50 * walk_direction,
-            150 * delta)
+            250 * delta)
+            return
+    velocity.x = move_toward(velocity.x, 0, 250 * delta)
 
 func _gravity(delta):
     if not is_on_floor():
